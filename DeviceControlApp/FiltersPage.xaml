@@ -1,0 +1,48 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DeviceControlApp.FiltersPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <!-- Выбор поля поиска -->
+            <Label Text="Выберите поле поиска:"/>
+            <Picker x:Name="SearchFieldPicker" SelectedItem = "{Binding FilterParametersDto.SearchField, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Id</x:String>
+                        <x:String>Name</x:String>
+                        <!-- Добавьте другие поля, если необходимо -->
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
+            <!-- Выбор поля сортировки -->
+            <Label Text="Выберите поле сортировки:"/>
+            <Picker x:Name="SortFieldPicker" SelectedItem = "{Binding FilterParametersDto.SortField, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Id</x:String>
+                        <x:String>Name</x:String>
+                        <!-- Добавьте другие поля, если необходимо -->
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
+            <!-- Выбор направления сортировки -->
+            <Label Text="Выберите направление сортировки:"/>
+            <Picker x:Name="SortDirectionPicker" SelectedItem = "{Binding FilterParametersDto.SortedByAscendingOrder, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>По возрастанию</x:String>
+                        <x:String>По убыванию</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
+            <!-- Кнопка для применения фильтров и сортировки -->
+            <Button Text="Применить" Clicked="ApplyFilters_Clicked"/>
+            
+            <Button Text="Назад" Clicked="BackButton_Clicked"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
