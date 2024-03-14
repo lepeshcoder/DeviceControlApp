@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DeviceControlApp.BLL;
 using DeviceControlApp.BLL.DTO;
 using Device = DeviceControlApp.DAL.Entities.Device;
@@ -15,22 +16,17 @@ public partial class EditDevicePage : ContentPage
 
     private readonly DeviceService _deviceService;
 
+    private readonly IMapper _mapper;
     public DeviceEditDto DeviceEditDto { get; set; }
+    
     private Device _deviceToEdit;
+    
     public EditDevicePage(Device deviceToEdit)
     {
         _deviceToEdit = deviceToEdit;
+        _mapper = MauiProgram.Services!.GetService<IMapper>()!;
         _deviceService = MauiProgram.Services!.GetService<DeviceService>()!;
-        DeviceEditDto = new DeviceEditDto
-        {
-            Name = _deviceToEdit.Name,
-            Description = _deviceToEdit.Description,
-            FactoryNumber = _deviceToEdit.FactoryNumber,
-            InventoryNumber = _deviceToEdit.InventoryNumber,
-            Owner = _deviceToEdit.Owner,
-            LastVerificationTime = _deviceToEdit.LastVerificationTime,
-            NextVerificationTime = _deviceToEdit.NextVerificationTime
-        };
+        DeviceEditDto = _mapper.Map<Device, DeviceEditDto>(_deviceToEdit);
         BindingContext = this;
         InitializeComponent();
     }
@@ -39,17 +35,8 @@ public partial class EditDevicePage : ContentPage
     {
         if (Validator.TryValidateObject(DeviceEditDto, new ValidationContext(DeviceEditDto), null, true))
         {
-            var updatedDevice = new Device
-            {
-                Id = _deviceToEdit.Id,
-                Name = DeviceEditDto.Name,
-                FactoryNumber = DeviceEditDto.FactoryNumber,
-                InventoryNumber = DeviceEditDto.InventoryNumber,
-                Owner = DeviceEditDto.Owner,
-                Description = DeviceEditDto.Description,
-                LastVerificationTime = DeviceEditDto.LastVerificationTime,
-                NextVerificationTime = DeviceEditDto.NextVerificationTime
-            };
+            var updatedDevice = _mapper.Map<DeviceEditDto, Device>(DeviceEditDto);
+            updatedDevice.Id = _deviceToEdit.Id;
             await _deviceService.UpdateDeviceAsync(updatedDevice);
             await Navigation.PopModalAsync();
         }

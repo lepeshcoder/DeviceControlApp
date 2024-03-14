@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
     protected override async  void OnAppearing()
     {
         base.OnAppearing();
-        var devices = await _deviceService.GetAllDevicesAsync();
+        var devices = await _deviceService.GetOrderedDevices(_filterParameters);
         foreach (var device in devices)
         {
             Devices.Add(device);
@@ -72,7 +72,7 @@ public partial class MainPage : ContentPage
         await Navigation.PushModalAsync(new FiltersPage(_filterParameters,this));
     }
 
-    public void ApplyFilters(FilterParameters newFilterParameters)
+    public async Task ApplyFilters(FilterParameters newFilterParameters)
     {
         _filterParameters = newFilterParameters;
     }

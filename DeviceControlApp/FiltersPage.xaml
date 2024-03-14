@@ -8,9 +8,11 @@
             <Picker x:Name="SearchFieldPicker" SelectedItem = "{Binding FilterParametersDto.SearchField, Mode=TwoWay}">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
-                        <x:String>Id</x:String>
                         <x:String>Name</x:String>
-                        <!-- Добавьте другие поля, если необходимо -->
+                        <x:String>FactoryNumber</x:String>
+                        <x:String>InventoryNumber</x:String>
+                        <x:String>Owner</x:String>
+                        <x:String>Description</x:String>
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
@@ -20,8 +22,10 @@
             <Picker x:Name="SortFieldPicker" SelectedItem = "{Binding FilterParametersDto.SortField, Mode=TwoWay}">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
-                        <x:String>Id</x:String>
                         <x:String>Name</x:String>
+                        <x:String>Owner</x:String>
+                        <x:String>LastVerificationTime</x:String>
+                        <x:String>NextVerificationTime</x:String>
                         <!-- Добавьте другие поля, если необходимо -->
                     </x:Array>
                 </Picker.ItemsSource>

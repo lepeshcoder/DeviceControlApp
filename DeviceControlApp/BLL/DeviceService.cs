@@ -53,14 +53,58 @@ public class DeviceService
     {
         var devices = await _deviceRepository.GetAllDevicesAsync();
 
-        var searchField = typeof(Device).GetProperty(filterParameters.SearchField);
-        devices = devices.Where(device => ((string)searchField!.GetValue(device)!).Contains(searchText) ).ToList();
-        
-        var sortField =  typeof(Device).GetProperty(filterParameters.SortField);
-        devices = filterParameters.SortedByAscendingOrder ?
-            devices.OrderBy(device => sortField.GetValue(device)).ToList() : 
-            devices.OrderByDescending(device => sortField.GetValue(device)).ToList();
-        
+        var searchField = filterParameters.SearchField;
+        devices = searchField switch
+        {
+            "Name" => devices.Where(d => d.Name.Contains(searchText)).ToList(),
+            "FactoryNumber" => devices.Where(d => d.FactoryNumber.Contains(searchText)).ToList(),
+            "InventoryNumber" => devices.Where(d => d.InventoryNumber.Contains(searchText)).ToList(),
+            "Owner" => devices.Where(d => d.Owner.Contains(searchText)).ToList(),
+            "Description" => devices.Where(d => d.Description != null && d.Description.Contains(searchText)).ToList(),
+            _ => devices
+        };
+
+        var sortField = filterParameters.SortField;
+        var isAscendingOrder = filterParameters.SortedByAscendingOrder;
+        devices = sortField switch
+        {
+            "Name" => isAscendingOrder
+                ? devices.OrderBy(d => d.Name).ToList()
+                : devices.OrderByDescending(d => d.Name).ToList(),
+            "Owner" => isAscendingOrder
+                ? devices.OrderBy(d => d.Owner).ToList()
+                : devices.OrderByDescending(d => d.Owner).ToList(),
+            "LastVerificationTime" => isAscendingOrder
+                ? devices.OrderBy(d => d.LastVerificationTime).ToList()
+                : devices.OrderByDescending(d => d.LastVerificationTime).ToList(),
+            "NextVerificationTime" => isAscendingOrder
+                ? devices.OrderBy(d => d.NextVerificationTime).ToList()
+                : devices.OrderByDescending(d => d.NextVerificationTime).ToList(),
+            _ => devices
+        };
+
+        return devices;
+    }
+
+    public async Task<List<Device>> GetOrderedDevices(FilterParameters filterParameters)
+    {
+        var devices = await _deviceRepository.GetAllDevicesAsync();
+        devices = filterParameters.SortField switch
+        {
+            "Name" => filterParameters.SortedByAscendingOrder
+                ? devices.OrderBy(d => d.Name).ToList()
+                : devices.OrderByDescending(d => d.Name).ToList(),
+            "Owner" => filterParameters.SortedByAscendingOrder
+                ? devices.OrderBy(d => d.Owner).ToList()
+                : devices.OrderByDescending(d => d.Owner).ToList(),
+            "LastVerificationTime" => filterParameters.SortedByAscendingOrder
+                ? devices.OrderBy(d => d.LastVerificationTime).ToList()
+                : devices.OrderByDescending(d => d.LastVerificationTime).ToList(),
+            "NextVerificationTime" => filterParameters.SortedByAscendingOrder
+                ? devices.OrderBy(d => d.NextVerificationTime).ToList()
+                : devices.OrderByDescending(d => d.NextVerificationTime).ToList(),
+            _ => devices
+        };
         return devices;
     }
 }

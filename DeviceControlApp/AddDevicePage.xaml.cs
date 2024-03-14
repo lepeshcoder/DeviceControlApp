@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DeviceControlApp.BLL;
 using DeviceControlApp.BLL.DTO;
 using DeviceControlApp.DAL.Repositories;
@@ -14,10 +15,12 @@ namespace DeviceControlApp;
 public partial class AddDevicePage : ContentPage
 {
     private readonly DeviceService _deviceService;
+    private readonly IMapper _mapper;
     public DeviceAddDto DeviceAddDto { get; set; }
     
     public AddDevicePage()
     {
+        _mapper = MauiProgram.Services!.GetService<IMapper>()!;
         _deviceService = MauiProgram.Services!.GetService<DeviceService>()!;
         InitializeComponent();
         DeviceAddDto = new DeviceAddDto(); 
@@ -28,16 +31,7 @@ public partial class AddDevicePage : ContentPage
     {
         if (Validator.TryValidateObject(DeviceAddDto, new ValidationContext(DeviceAddDto), null, true))
         {
-            var newDevice = new Device
-            {
-                Name = DeviceAddDto.Name,
-                Description = DeviceAddDto.Description,
-                FactoryNumber = DeviceAddDto.FactoryNumber,
-                InventoryNumber = DeviceAddDto.InventoryNumber,
-                Owner = DeviceAddDto.Owner,
-                LastVerificationTime = DeviceAddDto.LastVerificationTime,
-                NextVerificationTime = DeviceAddDto.NextVerificationTime
-            };
+            var newDevice = _mapper.Map<DeviceAddDto, Device>(DeviceAddDto);
             await _deviceService.AddDevice(newDevice);
             await Navigation.PopModalAsync();
         }

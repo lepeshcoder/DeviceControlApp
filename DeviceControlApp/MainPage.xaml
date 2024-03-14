@@ -2,52 +2,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceControlApp.MainPage">
     
-    
-
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <!-- Поисковая строка -->
-                <SearchBar Placeholder="Search..." TextChanged="InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
-                
-                <!-- Меню фильтров -->
-                <Button Text="Filters" Clicked="FiltersButton_Clicked" HorizontalOptions="End" VerticalOptions="Start"/>
+        <Grid Padding="10">
+            <!-- Поисковая строка и кнопка фильтров -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <StackLayout Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="0">
+                <SearchBar Placeholder="Search..." TextChanged="InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+                <Button Text="Filters" Clicked="FiltersButton_Clicked" HorizontalOptions="End" VerticalOptions="StartAndExpand"/>
             </StackLayout>
 
             <!-- Скролящаяся CollectionView -->
-            <StackLayout>
-                <CollectionView ItemsSource="{Binding Devices, Mode=TwoWay}"  ItemsUpdatingScrollMode="KeepLastItemInView">
+            <ScrollView Grid.Row="1" >
+                <CollectionView ItemsSource="{Binding Devices, Mode=TwoWay}" ItemsUpdatingScrollMode="KeepLastItemInView">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="5" HasShadow="True">
-                                <StackLayout>
-                                    <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" FontSize="Large"/>
-                                    <Label Text="FactoryNumber:" FontAttributes="Bold" />
-                                    <Label Text="{Binding FactoryNumber, Mode=TwoWay}" />
-                                    <Label Text="InventoryNumber:" FontAttributes="Bold" />
-                                    <Label Text="{Binding InventoryNumber, Mode=TwoWay}" />
-                                    <Label Text="Owner:" FontAttributes="Bold" />
-                                    <Label Text="{Binding Owner, Mode=TwoWay}" />
-                                    <Label Text="Description:" FontAttributes="Bold" />
-                                    <Label Text="{Binding Description, Mode=TwoWay}" />
-                                    <StackLayout Orientation="Horizontal">
-                                        <Button Text="Edit" Clicked="EditButton_Clicked"/>
-                                        <Button Text="Delete" Clicked="DeleteButton_Clicked"/>
+                            <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="10" HasShadow="True">
+                                <Grid RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                                    <Label Text="FactoryNumber:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0"/>
+                                    <Label Text="{Binding FactoryNumber, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Text="InventoryNumber:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding InventoryNumber, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                                    <Label Text="Owner:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0"/>
+                                    <Label Text="{Binding Owner, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+                                    <Label Text="Description:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0"/>
+                                    <Label Text="{Binding Description, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+                                    <Label Text="LastVerificationTime:" FontAttributes="Bold" Grid.Row="5" Grid.Column="0"/>
+                                    <Label Text="{Binding LastVerificationTime, Mode=TwoWay}" Grid.Row="5" Grid.Column="1"/>
+                                    <Label Text="NextVerificationTime:" FontAttributes="Bold" Grid.Row="6" Grid.Column="0"/>
+                                    <Label Text="{Binding NextVerificationTime, Mode=TwoWay}" Grid.Row="6" Grid.Column="1"/>
+
+                                    <StackLayout Orientation="Horizontal" Grid.Row="7" Grid.Column="0" HorizontalOptions="Center" Grid.ColumnSpan="2" Spacing="70">
+                                        <Button Text="Edit" Clicked="EditButton_Clicked" BackgroundColor="#FFE8E857" WidthRequest="100"/>
+                                        <Button Text="Delete" Clicked="DeleteButton_Clicked" BackgroundColor="#FFDC554F" WidthRequest="100"/>
                                     </StackLayout>
-                                </StackLayout>
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </StackLayout>
-
+            </ScrollView>
+            
             <!-- Кнопка "Добавить" внизу страницы -->
-            <Button Text="Add" Clicked="AddButton_Clicked" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
-                <Button.ImageSource>
-                    <FontImageSource Glyph="&#xf067;" Size="Large"/>
-                </Button.ImageSource>
-            </Button>
-        </StackLayout>
+            <Button Text="Add" Clicked="AddButton_Clicked"  WidthRequest="100" HorizontalOptions="Center" BackgroundColor="#FF89C269" Margin="0,10,0,0" Grid.Row="2"/>
+                
+        </Grid>
     </ContentPage.Content>
 
 </ContentPage>

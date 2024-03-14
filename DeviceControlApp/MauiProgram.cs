@@ -1,15 +1,24 @@
-﻿using DeviceControlApp.BLL;
+﻿using AutoMapper;
+using DeviceControlApp.BLL;
+using DeviceControlApp.BLL.MapperProfile;
 using DeviceControlApp.DAL.DbContext;
 using DeviceControlApp.DAL.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace DeviceControlApp;
 
+//TODO: PUSH-MESSAGES
+
 public static class MauiProgram
 {
     public static IServiceProvider? Services;
     public static MauiApp CreateMauiApp()
     {
+        var mapperConfiguration = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<MapperProfile>();
+        });
+        var mapper = mapperConfiguration.CreateMapper();
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -21,6 +30,7 @@ public static class MauiProgram
         builder.Services.AddDbContext<AppDbContext>();
         builder.Services.AddScoped<DeviceRepository>();
         builder.Services.AddScoped<DeviceService>();
+        builder.Services.AddSingleton(mapper);
         Services = builder.Services.BuildServiceProvider();
         
 #if DEBUG
