@@ -20,11 +20,14 @@ public partial class EditDevicePage : ContentPage
     public EditDevicePage(Device deviceToEdit)
     {
         _deviceToEdit = deviceToEdit;
-        _deviceService = MauiProgram.Services.GetService<DeviceService>();
+        _deviceService = MauiProgram.Services!.GetService<DeviceService>()!;
         DeviceEditDto = new DeviceEditDto
         {
             Name = _deviceToEdit.Name,
             Description = _deviceToEdit.Description,
+            FactoryNumber = _deviceToEdit.FactoryNumber,
+            InventoryNumber = _deviceToEdit.InventoryNumber,
+            Owner = _deviceToEdit.Owner,
             LastVerificationTime = _deviceToEdit.LastVerificationTime,
             NextVerificationTime = _deviceToEdit.NextVerificationTime
         };
@@ -40,6 +43,9 @@ public partial class EditDevicePage : ContentPage
             {
                 Id = _deviceToEdit.Id,
                 Name = DeviceEditDto.Name,
+                FactoryNumber = DeviceEditDto.FactoryNumber,
+                InventoryNumber = DeviceEditDto.InventoryNumber,
+                Owner = DeviceEditDto.Owner,
                 Description = DeviceEditDto.Description,
                 LastVerificationTime = DeviceEditDto.LastVerificationTime,
                 NextVerificationTime = DeviceEditDto.NextVerificationTime

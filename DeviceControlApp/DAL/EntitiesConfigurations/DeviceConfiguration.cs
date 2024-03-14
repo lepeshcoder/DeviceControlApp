@@ -13,5 +13,8 @@ public class DeviceConfiguration : IEntityTypeConfiguration<Device>
         builder.HasIndex(e => e.Id, "id_UNIQUE").IsUnique();
         builder.Property(e => e.Id).HasColumnName("id").IsRequired().ValueGeneratedOnAdd();
         builder.Property(e => e.Name).HasColumnName("Name").IsRequired();
+        builder.Property(e => e.FactoryNumber).HasColumnName("FactoryNumber").IsRequired();
+        builder.Property(e => e.InventoryNumber).HasColumnName("InventoryNumber").IsRequired();
+        builder.Property(e => e.Owner).HasColumnName("Owner").IsRequired();
     }
 }

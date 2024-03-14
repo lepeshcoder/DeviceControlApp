@@ -11,7 +11,9 @@ public class DeviceAddDto : INotifyPropertyChanged
     private string? _description;
     private DateTime? _lastVerificationTime;
     private DateTime? _nextVerificationTime;
-    
+    private string _factoryNumber;
+    private string _inventoryNumber;
+    private string _owner;
 
 
     [Required(ErrorMessage = "Device Name is required")]
@@ -39,9 +41,29 @@ public class DeviceAddDto : INotifyPropertyChanged
         get => _nextVerificationTime;
         set => SetField(ref _nextVerificationTime, value);
     }
+    
+    
+    [Required(ErrorMessage = "FactoryNumber is required")]
+    public string FactoryNumber
+    {
+        get => _factoryNumber;
+        set => SetField(ref _factoryNumber, value);
+    }
 
-    
-    
+    [Required(ErrorMessage = "InventoryNumber is required")]
+    public string InventoryNumber
+    {
+        get => _inventoryNumber;
+        set => SetField(ref _inventoryNumber, value);
+    }
+
+    [Required(ErrorMessage = "Owner is required")]
+    public string Owner
+    {
+        get => _owner;
+        set => SetField(ref _owner, value);
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

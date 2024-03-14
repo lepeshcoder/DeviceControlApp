@@ -27,9 +27,28 @@ public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.ApplyConfiguration(new DeviceConfiguration());
         // Добавляем начальные данные
         modelBuilder.Entity<Device>().HasData([
-            new Device{Id = 1,Name = "kal1"},
-            new Device{Id = 2,Name = "kal2"},
-            new Device{Id = 3,Name = "kal3"}
+           new Device
+           {
+               Id = 1,
+               Name = "Device1",
+               Description = "Good Device",
+               FactoryNumber = "BN1253632CD415",
+               InventoryNumber = "153215215234623",
+               Owner = "AGAT-SYSTEM",
+               LastVerificationTime = DateTime.Now,
+               NextVerificationTime = DateTime.Now
+           },
+           new Device
+           {
+               Id = 2,
+               Name = "Device2",
+               Description = "Excelent Device",
+               FactoryNumber = "BL1GB56743",
+               InventoryNumber = "5372367532KJCSA",
+               Owner = "KAL-FACTORY",
+               LastVerificationTime = DateTime.Now,
+               NextVerificationTime = DateTime.Now
+           }
         ]);
     }
 }

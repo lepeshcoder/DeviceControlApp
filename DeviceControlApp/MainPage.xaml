@@ -1,8 +1,8 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:DeviceControlApp"
              x:Class="DeviceControlApp.MainPage">
-             
+    
+    
 
     <ContentPage.Content>
         <StackLayout>
@@ -15,20 +15,31 @@
             </StackLayout>
 
             <!-- Скролящаяся CollectionView -->
-            <CollectionView ItemsSource="{Binding Devices, Mode=TwoWay}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Label Text="{Binding Id, Mode=TwoWay}" />
-                            <Label Text="{Binding Name, Mode=TwoWay}" />
-                            <StackLayout Orientation="Horizontal">
-                                <Button Text="Edit" Clicked="EditButton_Clicked"/>
-                                <Button Text="Delete" Clicked="DeleteButton_Clicked"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <StackLayout>
+                <CollectionView ItemsSource="{Binding Devices, Mode=TwoWay}"  ItemsUpdatingScrollMode="KeepLastItemInView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="5" HasShadow="True">
+                                <StackLayout>
+                                    <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" FontSize="Large"/>
+                                    <Label Text="FactoryNumber:" FontAttributes="Bold" />
+                                    <Label Text="{Binding FactoryNumber, Mode=TwoWay}" />
+                                    <Label Text="InventoryNumber:" FontAttributes="Bold" />
+                                    <Label Text="{Binding InventoryNumber, Mode=TwoWay}" />
+                                    <Label Text="Owner:" FontAttributes="Bold" />
+                                    <Label Text="{Binding Owner, Mode=TwoWay}" />
+                                    <Label Text="Description:" FontAttributes="Bold" />
+                                    <Label Text="{Binding Description, Mode=TwoWay}" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Button Text="Edit" Clicked="EditButton_Clicked"/>
+                                        <Button Text="Delete" Clicked="DeleteButton_Clicked"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
 
             <!-- Кнопка "Добавить" внизу страницы -->
             <Button Text="Add" Clicked="AddButton_Clicked" HorizontalOptions="CenterAndExpand" VerticalOptions="End">

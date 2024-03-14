@@ -11,8 +11,11 @@ public class DeviceEditDto : INotifyPropertyChanged
     private string? _description;
     private DateTime? _lastVerificationTime;
     private DateTime? _nextVerificationTime;
-    
-    
+    private string _factoryNumber;
+    private string _inventoryNumber;
+    private string _owner;
+
+
     [Required(ErrorMessage = "Device Name is required")]
     public string Name
     {
@@ -39,8 +42,25 @@ public class DeviceEditDto : INotifyPropertyChanged
         set => SetField(ref _nextVerificationTime, value);
     }
 
-    
-    
+    public string FactoryNumber
+    {
+        get => _factoryNumber;
+        set => SetField(ref _factoryNumber, value);
+    }
+
+    public string InventoryNumber
+    {
+        get => _inventoryNumber;
+        set => SetField(ref _inventoryNumber, value);
+    }
+
+    public string Owner
+    {
+        get => _owner;
+        set => SetField(ref _owner, value);
+    }
+
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

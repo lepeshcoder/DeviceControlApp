@@ -18,7 +18,7 @@ public partial class AddDevicePage : ContentPage
     
     public AddDevicePage()
     {
-        _deviceService = MauiProgram.Services.GetService<DeviceService>();
+        _deviceService = MauiProgram.Services!.GetService<DeviceService>()!;
         InitializeComponent();
         DeviceAddDto = new DeviceAddDto(); 
         BindingContext = this; 
@@ -32,6 +32,9 @@ public partial class AddDevicePage : ContentPage
             {
                 Name = DeviceAddDto.Name,
                 Description = DeviceAddDto.Description,
+                FactoryNumber = DeviceAddDto.FactoryNumber,
+                InventoryNumber = DeviceAddDto.InventoryNumber,
+                Owner = DeviceAddDto.Owner,
                 LastVerificationTime = DeviceAddDto.LastVerificationTime,
                 NextVerificationTime = DeviceAddDto.NextVerificationTime
             };

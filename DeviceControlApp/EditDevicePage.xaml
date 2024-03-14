@@ -10,6 +10,15 @@
 
             <Label Text="Description" />
             <Editor x:Name="DescriptionEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.Description,Mode=TwoWay}" />
+            
+            <Label Text="FactoryNumber" />
+            <Editor x:Name="FactoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.FactoryNumber,Mode=TwoWay}" />
+            
+            <Label Text="InventoryNumber" />
+            <Editor x:Name="InventoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.InventoryNumber,Mode=TwoWay}" />
+            
+            <Label Text="Owner" />
+            <Editor x:Name="OwnerEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.Owner,Mode=TwoWay}" />
 
             <Label Text="Last Verification Time" />
             <DatePicker x:Name="LastVerificationDatePicker" Date="{Binding DeviceEditDto.LastVerificationTime,Mode=TwoWay}"/>
