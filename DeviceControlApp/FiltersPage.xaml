@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceControlApp.FiltersPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <StackLayout  Padding = "20" BackgroundColor="#D0E8F2">
             <!-- Выбор поля поиска -->
             <Label Text="Выберите поле поиска:"/>
             <Picker x:Name="SearchFieldPicker" SelectedItem = "{Binding FilterParametersDto.SearchField, Mode=TwoWay}">
@@ -43,10 +43,7 @@
             </Picker>
             
             <!-- Кнопка для применения фильтров и сортировки -->
-            <Button Text="Применить" Clicked="ApplyFilters_Clicked"/>
-            
-            <Button Text="Назад" Clicked="BackButton_Clicked"/>
-            
+            <Button Text="Применить" Clicked="ApplyFilters_Clicked"  BackgroundColor="#4CAF50"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

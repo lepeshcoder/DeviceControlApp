@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceControlApp.EditDevicePage">
     <ContentPage.Content>
-        <StackLayout Padding="20">
+        <StackLayout Padding="20" BackgroundColor="#D0E8F2">
             <Label Text="Device Name" />
             <Entry x:Name="NameEntry" Placeholder="Enter device name"  Text="{Binding DeviceEditDto.Name, Mode=TwoWay}" />
 
@@ -26,7 +26,7 @@
             <Label Text="Next Verification Time" />
             <DatePicker x:Name="NextVerificationDatePicker"  Date="{Binding DeviceEditDto.NextVerificationTime,Mode=TwoWay}"/>
 
-            <Button Text="Save" Clicked="SaveButton_Clicked" />
+            <Button Text="Save" Clicked="SaveButton_Clicked"  BackgroundColor="#4CAF50" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

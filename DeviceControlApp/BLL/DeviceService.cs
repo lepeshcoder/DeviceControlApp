@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using DeviceControlApp.DAL.Repositories;
 using Device = DeviceControlApp.DAL.Entities.Device;
 
@@ -107,4 +108,13 @@ public class DeviceService
         };
         return devices;
     }
+
+    public async Task<IEnumerable<Device>> GetScheduledDevices(DateTime schedulePeriod)
+    {
+        var devices = await _deviceRepository.GetAllDevicesAsync();
+        devices = devices.Where(d => d.NextVerificationTime <= schedulePeriod).ToList();
+        return devices;
+    }
+
+  
 }

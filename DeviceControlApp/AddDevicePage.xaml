@@ -6,21 +6,21 @@
     
     
     <ContentPage.Content>
-        <StackLayout Padding="20">
+        <StackLayout Padding="20" BackgroundColor="#D0E8F2">
             <Label Text="Device Name" />
             <Entry x:Name="NameEntry" Placeholder="Enter device name"  Text="{Binding DeviceAddDto.Name, Mode=TwoWay}" />
 
             <Label Text="Description" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Enter device description"  Text="{Binding DeviceAddDto.Description,Mode=TwoWay}" />
+            <Editor x:Name="DescriptionEditor" Placeholder="Enter device description" Text="{Binding DeviceAddDto.Description,Mode=TwoWay}" />
 
             <Label Text="FactoryNumber" />
-            <Editor x:Name="FactoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceAddDto.FactoryNumber,Mode=TwoWay}" />
+            <Editor x:Name="FactoryNumberEditor" Placeholder="Enter device FactoryNumber"  Text="{Binding DeviceAddDto.FactoryNumber,Mode=TwoWay}" />
             
             <Label Text="InventoryNumber" />
-            <Editor x:Name="InventoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceAddDto.InventoryNumber,Mode=TwoWay}" />
+            <Editor x:Name="InventoryNumberEditor" Placeholder="Enter device InventoryNumber"  Text="{Binding DeviceAddDto.InventoryNumber,Mode=TwoWay}" />
             
             <Label Text="Owner" />
-            <Editor x:Name="OwnerEditor" Placeholder="Enter device description"  Text="{Binding DeviceAddDto.Owner,Mode=TwoWay}" />
+            <Editor x:Name="OwnerEditor" Placeholder="Enter device Owner"  Text="{Binding DeviceAddDto.Owner,Mode=TwoWay}" />
             
             <Label Text="Last Verification Time" />
             <DatePicker x:Name="LastVerificationDatePicker" Date="{Binding DeviceAddDto.LastVerificationTime,Mode=TwoWay}"/>
@@ -28,7 +28,7 @@
             <Label Text="Next Verification Time" />
             <DatePicker x:Name="NextVerificationDatePicker"  Date="{Binding DeviceAddDto.NextVerificationTime,Mode=TwoWay}"/>
 
-            <Button Text="Save" Clicked="SaveButton_Clicked" />
+            <Button Text="Save" Clicked="SaveButton_Clicked"  BackgroundColor="#4CAF50"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,9 +1,10 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DeviceControlApp.MainPage">
+             x:Class="DeviceControlApp.MainPage"
+             NavigationPage.HasNavigationBar="False">
     
-    <ContentPage.Content>
-        <Grid Padding="10">
+    <ContentPage.Content >
+        <Grid  Padding = "10" BackgroundColor="#D0E8F2" VerticalOptions="Start">
             <!-- Поисковая строка и кнопка фильтров -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -11,14 +12,17 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <StackLayout Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="0">
-                <SearchBar Placeholder="Search..." TextChanged="InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
-                <Button Text="Filters" Clicked="FiltersButton_Clicked" HorizontalOptions="End" VerticalOptions="StartAndExpand"/>
+            <StackLayout Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="0" VerticalOptions="Start">
+                <SearchBar Placeholder="Search..." TextChanged = "InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
+                <Button Text="Filters" Clicked="FiltersButton_Clicked" HorizontalOptions="End" BackgroundColor="#4CAF50" />
             </StackLayout>
 
             <!-- Скролящаяся CollectionView -->
-            <ScrollView Grid.Row="1" >
-                <CollectionView ItemsSource="{Binding Devices, Mode=TwoWay}" ItemsUpdatingScrollMode="KeepLastItemInView">
+            <ScrollView Grid.Row="1">
+                <CollectionView  ItemsSource="{Binding Devices, Mode=TwoWay}" ItemsUpdatingScrollMode="KeepLastItemInView">
+                    <CollectionView.Header>
+                        <Label x:Name="HeaderLabel" Text= "DefaultMode" FontSize="18" FontAttributes="Bold" />
+                    </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="10" HasShadow="True">
@@ -64,9 +68,39 @@
                 </CollectionView>
             </ScrollView>
             
-            <!-- Кнопка "Добавить" внизу страницы -->
-            <Button Text="Add" Clicked="AddButton_Clicked"  WidthRequest="100" HorizontalOptions="Center" BackgroundColor="#FF89C269" Margin="0,10,0,0" Grid.Row="2"/>
-                
+            <StackLayout Orientation="Horizontal" Grid.Row="2"  >
+                <VerticalStackLayout>
+                    <Label Text="Period" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold" FontSize="20"/>
+                    <Picker x:Name="TimePeriodPicker" SelectedIndexChanged="TimePeriodPicker_SelectedIndexChanged" FontAttributes="Bold">
+                    <Picker.WidthRequest>100</Picker.WidthRequest>
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1 day</x:String>
+                            <x:String>1 week</x:String>
+                            <x:String>1 month</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                </VerticalStackLayout>
+                <Button Clicked = "ScheduleButton_Clicked" Text="!" FontSize="32" FontAttributes="Bold">
+                     <Button.Margin>15,10,0,0</Button.Margin>
+                     <Button.HeightRequest>60</Button.HeightRequest>
+                     <Button.WidthRequest>60</Button.WidthRequest>
+                     <Button.CornerRadius>30</Button.CornerRadius>
+                     <Button.BackgroundColor>Tomato</Button.BackgroundColor>
+                     <Button.HorizontalOptions>Start</Button.HorizontalOptions>
+                </Button>
+                <Button Text="+" Clicked="AddButton_Clicked" FontSize="32">
+                    <Button.FontAttributes>Bold</Button.FontAttributes>
+                    <Button.CornerRadius>30</Button.CornerRadius>
+                    <Button.Margin>120,10,0,0</Button.Margin>
+                    <Button.BackgroundColor>#FF89C269</Button.BackgroundColor>
+                    <Button.HorizontalOptions>End</Button.HorizontalOptions>
+                    <Button.WidthRequest>60</Button.WidthRequest>
+                    <Button.HeightRequest>60</Button.HeightRequest>
+                </Button>
+            </StackLayout>
+
         </Grid>
     </ContentPage.Content>
 

@@ -35,7 +35,7 @@ public partial class FiltersPage : ContentPage
             SortField = FilterParametersDto.SortField,
             SortedByAscendingOrder = FilterParametersDto.SortedByAscendingOrder == "По возрастанию" 
         };
-        await _mainPage.ApplyFilters(newFilterParameters);
+        _mainPage.ApplyFilters(newFilterParameters);
         await Navigation.PopModalAsync();
     }
 

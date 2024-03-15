@@ -7,7 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace DeviceControlApp;
 
-//TODO: PUSH-MESSAGES
+//TODO: CHANGE REQUESTS ON DB TO DEVICES
+//TODO: FIX SCHEDULEPICKER ON MAINPAGE
 
 public static class MauiProgram
 {
