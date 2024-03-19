@@ -38,9 +38,5 @@ public partial class FiltersPage : ContentPage
         _mainPage.ApplyFilters(newFilterParameters);
         await Navigation.PopModalAsync();
     }
-
-    private async void BackButton_Clicked(object? sender, EventArgs e)
-    {
-        await Navigation.PopModalAsync();
-    }
+    
 }

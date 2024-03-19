@@ -5,28 +5,28 @@
              x:Class="DeviceControlApp.EditDevicePage">
     <ContentPage.Content>
         <StackLayout Padding="20" BackgroundColor="#D0E8F2">
-            <Label Text="Device Name" />
-            <Entry x:Name="NameEntry" Placeholder="Enter device name"  Text="{Binding DeviceEditDto.Name, Mode=TwoWay}" />
+            <Label Text="Название устройства" />
+            <Entry x:Name="NameEntry" Placeholder="Введите название устройства"  Text="{Binding DeviceEditDto.Name, Mode=TwoWay}" />
 
-            <Label Text="Description" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.Description,Mode=TwoWay}" />
+            <Label Text="Описание" />
+            <Editor x:Name="DescriptionEditor" Placeholder="Введите описание"  Text="{Binding DeviceEditDto.Description,Mode=TwoWay}" />
             
-            <Label Text="FactoryNumber" />
-            <Editor x:Name="FactoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.FactoryNumber,Mode=TwoWay}" />
+            <Label Text="Фабричный номер" />
+            <Editor x:Name="FactoryNumberEditor" Placeholder="Введите фабричный номер"  Text="{Binding DeviceEditDto.FactoryNumber,Mode=TwoWay}" />
             
-            <Label Text="InventoryNumber" />
-            <Editor x:Name="InventoryNumberEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.InventoryNumber,Mode=TwoWay}" />
+            <Label Text="Инвентарный номер" />
+            <Editor x:Name="InventoryNumberEditor" Placeholder="Введите инвентарный номер"  Text="{Binding DeviceEditDto.InventoryNumber,Mode=TwoWay}" />
             
-            <Label Text="Owner" />
-            <Editor x:Name="OwnerEditor" Placeholder="Enter device description"  Text="{Binding DeviceEditDto.Owner,Mode=TwoWay}" />
+            <Label Text="Владелец" />
+            <Editor x:Name="OwnerEditor" Placeholder="Введите владельца"  Text="{Binding DeviceEditDto.Owner,Mode=TwoWay}" />
 
-            <Label Text="Last Verification Time" />
+            <Label Text="Дата последней поверки" />
             <DatePicker x:Name="LastVerificationDatePicker" Date="{Binding DeviceEditDto.LastVerificationTime,Mode=TwoWay}"/>
 
-            <Label Text="Next Verification Time" />
+            <Label Text="Дата следующей поверки" />
             <DatePicker x:Name="NextVerificationDatePicker"  Date="{Binding DeviceEditDto.NextVerificationTime,Mode=TwoWay}"/>
 
-            <Button Text="Save" Clicked="SaveButton_Clicked"  BackgroundColor="#4CAF50" />
+            <Button Text="Сохранить" Clicked="SaveButton_Clicked"  BackgroundColor="#4CAF50" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

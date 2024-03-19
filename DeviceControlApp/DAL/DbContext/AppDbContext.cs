@@ -1,4 +1,5 @@
 ﻿using DeviceControlApp.DAL.EntitiesConfigurations;
+using DeviceControlApp.Plugins.ExcelParser;
 using Microsoft.EntityFrameworkCore;
 using Device = DeviceControlApp.DAL.Entities.Device;
 
@@ -6,8 +7,11 @@ namespace DeviceControlApp.DAL.DbContext;
 
 public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    public AppDbContext()
+
+    private readonly IExcelParser _excelParser;
+    public AppDbContext(IExcelParser excelParser)
     {
+        _excelParser = excelParser;
         Database.EnsureDeleted();
         Database.EnsureCreated();
     }
@@ -25,30 +29,7 @@ public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new DeviceConfiguration());
-        // Добавляем начальные данные
-        modelBuilder.Entity<Device>().HasData([
-           new Device
-           {
-               Id = 1,
-               Name = "Device1",
-               Description = "Good Device",
-               FactoryNumber = "BN1253632CD415",
-               InventoryNumber = "153215215234623",
-               Owner = "AGAT-SYSTEM",
-               LastVerificationTime = DateTime.Now,
-               NextVerificationTime = DateTime.Now
-           },
-           new Device
-           {
-               Id = 2,
-               Name = "Device2",
-               Description = "Excelent Device",
-               FactoryNumber = "BL1GB56743",
-               InventoryNumber = "5372367532KJCSA",
-               Owner = "KAL-FACTORY",
-               LastVerificationTime = DateTime.Now,
-               NextVerificationTime = DateTime.Now
-           }
-        ]);
+        var devicesFromExcel = _excelParser.ParseExcelFile("/storage/emulated/0/file.xlsx");
+        modelBuilder.Entity<Device>().HasData(devicesFromExcel);
     }
 }

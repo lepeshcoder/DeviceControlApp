@@ -1,6 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq.Expressions;
-using DeviceControlApp.DAL.Repositories;
+﻿using DeviceControlApp.DAL.Repositories;
+using DeviceControlApp.Plugins.ExcelParser;
 using Device = DeviceControlApp.DAL.Entities.Device;
 
 namespace DeviceControlApp.BLL;
@@ -9,7 +8,7 @@ public class DeviceService
 {
     private readonly DeviceRepository _deviceRepository;
 
-    public DeviceService(DeviceRepository deviceRepository)
+    public DeviceService(DeviceRepository deviceRepository, IExcelParser excelParser)
     {
         _deviceRepository = deviceRepository;
     }
@@ -57,11 +56,11 @@ public class DeviceService
         var searchField = filterParameters.SearchField;
         devices = searchField switch
         {
-            "Name" => devices.Where(d => d.Name.Contains(searchText)).ToList(),
-            "FactoryNumber" => devices.Where(d => d.FactoryNumber.Contains(searchText)).ToList(),
-            "InventoryNumber" => devices.Where(d => d.InventoryNumber.Contains(searchText)).ToList(),
-            "Owner" => devices.Where(d => d.Owner.Contains(searchText)).ToList(),
-            "Description" => devices.Where(d => d.Description != null && d.Description.Contains(searchText)).ToList(),
+            "Название" => devices.Where(d => d.Name.Contains(searchText)).ToList(),
+            "Фабричный номер" => devices.Where(d => d.FactoryNumber.Contains(searchText)).ToList(),
+            "Инвентарный номер" => devices.Where(d => d.InventoryNumber.Contains(searchText)).ToList(),
+            "Владелец" => devices.Where(d => d.Owner.Contains(searchText)).ToList(),
+            "Описание" => devices.Where(d => d.Description != null && d.Description.Contains(searchText)).ToList(),
             _ => devices
         };
 
@@ -69,16 +68,16 @@ public class DeviceService
         var isAscendingOrder = filterParameters.SortedByAscendingOrder;
         devices = sortField switch
         {
-            "Name" => isAscendingOrder
+            "Название" => isAscendingOrder
                 ? devices.OrderBy(d => d.Name).ToList()
                 : devices.OrderByDescending(d => d.Name).ToList(),
-            "Owner" => isAscendingOrder
+            "Владелец" => isAscendingOrder
                 ? devices.OrderBy(d => d.Owner).ToList()
                 : devices.OrderByDescending(d => d.Owner).ToList(),
-            "LastVerificationTime" => isAscendingOrder
+            "Дата последней поверки" => isAscendingOrder
                 ? devices.OrderBy(d => d.LastVerificationTime).ToList()
                 : devices.OrderByDescending(d => d.LastVerificationTime).ToList(),
-            "NextVerificationTime" => isAscendingOrder
+            "Дата следующей поверки" => isAscendingOrder
                 ? devices.OrderBy(d => d.NextVerificationTime).ToList()
                 : devices.OrderByDescending(d => d.NextVerificationTime).ToList(),
             _ => devices
@@ -92,16 +91,16 @@ public class DeviceService
         var devices = await _deviceRepository.GetAllDevicesAsync();
         devices = filterParameters.SortField switch
         {
-            "Name" => filterParameters.SortedByAscendingOrder
+            "Название" => filterParameters.SortedByAscendingOrder
                 ? devices.OrderBy(d => d.Name).ToList()
                 : devices.OrderByDescending(d => d.Name).ToList(),
-            "Owner" => filterParameters.SortedByAscendingOrder
+            "Владелец" => filterParameters.SortedByAscendingOrder
                 ? devices.OrderBy(d => d.Owner).ToList()
                 : devices.OrderByDescending(d => d.Owner).ToList(),
-            "LastVerificationTime" => filterParameters.SortedByAscendingOrder
+            "Дата последней поверки" => filterParameters.SortedByAscendingOrder
                 ? devices.OrderBy(d => d.LastVerificationTime).ToList()
                 : devices.OrderByDescending(d => d.LastVerificationTime).ToList(),
-            "NextVerificationTime" => filterParameters.SortedByAscendingOrder
+            "Дата следующей поверки" => filterParameters.SortedByAscendingOrder
                 ? devices.OrderBy(d => d.NextVerificationTime).ToList()
                 : devices.OrderByDescending(d => d.NextVerificationTime).ToList(),
             _ => devices
@@ -115,6 +114,5 @@ public class DeviceService
         devices = devices.Where(d => d.NextVerificationTime <= schedulePeriod).ToList();
         return devices;
     }
-
   
 }

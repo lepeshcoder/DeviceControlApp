@@ -11,8 +11,8 @@ public class FilterParameters
 
     public FilterParameters()
     {
-        SearchField = "Name";
-        SortField = "Name";
+        SearchField = "Название";
+        SortField = "Название";
         SortedByAscendingOrder = true;
     }
 

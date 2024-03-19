@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using DeviceControlApp.BLL;
 using DeviceControlApp.DAL.Repositories;
 using Device = DeviceControlApp.DAL.Entities.Device;
@@ -13,11 +14,11 @@ public partial class MainPage : ContentPage
     private DateTime _schedulePeriod;
     private FilterParameters _filterParameters;
     private readonly DeviceService _deviceService;
-    public ObservableCollection<Device> Devices { get; set; } = [];
+    public static ObservableCollection<Device> Devices { get; set; } = [];
     
     public MainPage()
     {
-        Mode = "DefaultMode";
+        Mode = "Режим просмотра";
         _schedulePeriod = DateTime.Now.AddDays(1);
         _filterParameters = new FilterParameters();
         _deviceService = MauiProgram.Services!.GetService<DeviceService>()!;
@@ -28,10 +29,10 @@ public partial class MainPage : ContentPage
     private async void AddButton_Clicked(object? sender, EventArgs e)
     {
         if(!_isScheduleMode)
-        await Navigation.PushModalAsync(new AddDevicePage());
+            await Navigation.PushModalAsync(new AddDevicePage());
         else
         {
-            await DisplayAlert("Error", "Switch to default Mode", "OK");
+            await DisplayAlert("Ошибка", "Перйдите в режим просмотра", "OK");
         }
     }
 
@@ -74,7 +75,7 @@ public partial class MainPage : ContentPage
     {
         if (_isScheduleMode)
         {
-            await DisplayAlert("Error", "Switch to default Mode", "OK");
+            await DisplayAlert("Ошибка", "Перейдите в режим просмотра", "OK");
         }
         else
         {
@@ -88,7 +89,7 @@ public partial class MainPage : ContentPage
     {
         if (_isScheduleMode)
         {
-            await DisplayAlert("Error", "Switch to default Mode", "OK");
+            await DisplayAlert("Ошибка", "Перейдите в режим просмотра", "OK");
         }
         else
         {
@@ -121,7 +122,7 @@ public partial class MainPage : ContentPage
                 Devices.Add(device);
             }
             _isScheduleMode = true;
-            headerLabel.Text = "ScheduledMode";
+            headerLabel.Text = "Режим планирования";
         }
         else
         {
@@ -132,7 +133,7 @@ public partial class MainPage : ContentPage
                 Devices.Add(device);
             }
             _isScheduleMode = false;
-            headerLabel.Text = "DefaultMode";
+            headerLabel.Text = "Режим просмотра";
         }
     }
 
@@ -141,9 +142,9 @@ public partial class MainPage : ContentPage
         if (sender is not Picker picker) return;
         _schedulePeriod = picker.SelectedItem switch
         {
-            "1 day" => DateTime.Now.AddDays(1),
-            "1 week" => DateTime.Now.AddDays(7),
-            "1 month" => DateTime.Now.AddMonths(1),
+            "1 день" => DateTime.Now.AddDays(1),
+            "1 неделя" => DateTime.Now.AddDays(7),
+            "1 месяц" => DateTime.Now.AddMonths(1),
             _ => _schedulePeriod
         };
         _isScheduleMode = false;

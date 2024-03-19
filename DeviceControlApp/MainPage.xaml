@@ -1,7 +1,12 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DeviceControlApp.MainPage"
+             xmlns:local="clr-namespace:DeviceControlApp.DAL.Entities"
+             xmlns:local1="clr-namespace:DeviceControlApp"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              NavigationPage.HasNavigationBar="False">
+    
+    
     
     <ContentPage.Content >
         <Grid  Padding = "10" BackgroundColor="#D0E8F2" VerticalOptions="Start">
@@ -13,20 +18,20 @@
             </Grid.RowDefinitions>
             
             <StackLayout Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="0" VerticalOptions="Start">
-                <SearchBar Placeholder="Search..." TextChanged = "InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
-                <Button Text="Filters" Clicked="FiltersButton_Clicked" HorizontalOptions="End" BackgroundColor="#4CAF50" />
+                <SearchBar Placeholder="Поиск..." TextChanged = "InputView_OnTextChanged" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
+                <Button Text="Фильтры" Clicked="FiltersButton_Clicked" HorizontalOptions="End" BackgroundColor="#4CAF50" />
             </StackLayout>
 
             <!-- Скролящаяся CollectionView -->
-            <ScrollView Grid.Row="1">
-                <CollectionView  ItemsSource="{Binding Devices, Mode=TwoWay}" ItemsUpdatingScrollMode="KeepLastItemInView">
+            
+                <CollectionView   ItemSizingStrategy="MeasureAllItems"   ItemsSource="{x:Static local1:MainPage.Devices,Mode}"  Grid.Row="1">
                     <CollectionView.Header>
-                        <Label x:Name="HeaderLabel" Text= "DefaultMode" FontSize="18" FontAttributes="Bold" />
+                        <Label x:Name="HeaderLabel" Text= "Режим просмотра" FontSize="18" FontAttributes="Bold" />
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:Device" >
                             <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="10" HasShadow="True">
-                                <Grid RowSpacing="5">
+                                <Grid RowSpacing="5" HeightRequest="350" WidthRequest="350">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -43,41 +48,41 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
-                                    <Label Text="FactoryNumber:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0"/>
-                                    <Label Text="{Binding FactoryNumber, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
-                                    <Label Text="InventoryNumber:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0"/>
-                                    <Label Text="{Binding InventoryNumber, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
-                                    <Label Text="Owner:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0"/>
-                                    <Label Text="{Binding Owner, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
-                                    <Label Text="Description:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0"/>
-                                    <Label Text="{Binding Description, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
-                                    <Label Text="LastVerificationTime:" FontAttributes="Bold" Grid.Row="5" Grid.Column="0"/>
-                                    <Label Text="{Binding LastVerificationTime, Mode=TwoWay}" Grid.Row="5" Grid.Column="1"/>
-                                    <Label Text="NextVerificationTime:" FontAttributes="Bold" Grid.Row="6" Grid.Column="0"/>
-                                    <Label Text="{Binding NextVerificationTime, Mode=TwoWay}" Grid.Row="6" Grid.Column="1"/>
+                                    <Label Text="{Binding Name, Mode=OneTime}" FontAttributes="Bold" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                                    <Label Text="Фабричный номер:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0"/>
+                                    <Label Text="{Binding FactoryNumber, Mode=OneTime}" Grid.Row="1" Grid.Column="1"/>
+                                    <Label Text="Инвентарный номер:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding InventoryNumber,  Mode=OneTime}" Grid.Row="2" Grid.Column="1"/>
+                                    <Label Text="Владелец:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0"/>
+                                    <Label Text="{Binding Owner, Mode=OneTime}" Grid.Row="3" Grid.Column="1"/>
+                                    <Label Text="Описание:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0"/>
+                                    <Label Text="{Binding Description, Mode=OneTime}" Grid.Row="4" Grid.Column="1"/>
+                                    <Label Text="Дата последней поверки:" FontAttributes="Bold" Grid.Row="5" Grid.Column="0"/>
+                                    <Label Text="{Binding LastVerificationTime, Mode=OneTime}" Grid.Row="5" Grid.Column="1"/>
+                                    <Label Text="Дата следующей поверки:" FontAttributes="Bold" Grid.Row="6" Grid.Column="0"/>
+                                    <Label Text="{Binding NextVerificationTime,Mode=OneTime}" Grid.Row="6" Grid.Column="1"/>
 
                                     <StackLayout Orientation="Horizontal" Grid.Row="7" Grid.Column="0" HorizontalOptions="Center" Grid.ColumnSpan="2" Spacing="70">
-                                        <Button Text="Edit" Clicked="EditButton_Clicked" BackgroundColor="#FFE8E857" WidthRequest="100"/>
-                                        <Button Text="Delete" Clicked="DeleteButton_Clicked" BackgroundColor="#FFDC554F" WidthRequest="100"/>
+                                        <Button Text="Редактировать" Clicked="EditButton_Clicked" BackgroundColor="#FFE8E857" WidthRequest="100"/>
+                                        <Button Text="Удалить" Clicked="DeleteButton_Clicked" BackgroundColor="#FFDC554F" WidthRequest="100"/>
                                     </StackLayout>
                                 </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </ScrollView>
+          
             
             <StackLayout Orientation="Horizontal" Grid.Row="2"  >
                 <VerticalStackLayout>
-                    <Label Text="Period" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold" FontSize="20"/>
+                    <Label Text="Период:" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold" FontSize="20"/>
                     <Picker x:Name="TimePeriodPicker" SelectedIndexChanged="TimePeriodPicker_SelectedIndexChanged" FontAttributes="Bold">
                     <Picker.WidthRequest>100</Picker.WidthRequest>
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>1 day</x:String>
-                            <x:String>1 week</x:String>
-                            <x:String>1 month</x:String>
+                            <x:String>1 день</x:String>
+                            <x:String>1 неделя</x:String>
+                            <x:String>1 месяц</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
@@ -93,7 +98,7 @@
                 <Button Text="+" Clicked="AddButton_Clicked" FontSize="32">
                     <Button.FontAttributes>Bold</Button.FontAttributes>
                     <Button.CornerRadius>30</Button.CornerRadius>
-                    <Button.Margin>120,10,0,0</Button.Margin>
+                    <Button.Margin>100,10,0,0</Button.Margin>
                     <Button.BackgroundColor>#FF89C269</Button.BackgroundColor>
                     <Button.HorizontalOptions>End</Button.HorizontalOptions>
                     <Button.WidthRequest>60</Button.WidthRequest>
