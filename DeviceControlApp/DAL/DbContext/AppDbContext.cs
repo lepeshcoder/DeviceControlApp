@@ -12,7 +12,6 @@ public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
     public AppDbContext(IExcelParser excelParser)
     {
         _excelParser = excelParser;
-        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 
@@ -29,7 +28,7 @@ public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new DeviceConfiguration());
-        var devicesFromExcel = _excelParser.ParseExcelFile("/storage/emulated/0/file.xlsx");
+        var devicesFromExcel = _excelParser.ParseExcelFile("/storage/emulated/0/Download/Telegram/file.xlsx");
         modelBuilder.Entity<Device>().HasData(devicesFromExcel);
     }
 }

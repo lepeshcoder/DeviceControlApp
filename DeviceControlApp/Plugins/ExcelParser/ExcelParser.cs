@@ -12,6 +12,10 @@ public class ExcelParser : IExcelParser
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         using (var package = new ExcelPackage(new FileInfo(fileAbsolutePath)))
         {
+            if (File.Exists(fileAbsolutePath))
+            {
+                Console.WriteLine("kal");
+            }
             var worksheet = package.Workbook.Worksheets.FirstOrDefault();
             if (worksheet == null)
             {

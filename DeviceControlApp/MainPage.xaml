@@ -24,14 +24,14 @@
 
             <!-- Скролящаяся CollectionView -->
             
-                <CollectionView   ItemSizingStrategy="MeasureAllItems"   ItemsSource="{x:Static local1:MainPage.Devices,Mode}"  Grid.Row="1">
+                <CollectionView   ItemSizingStrategy="MeasureAllItems"   ItemsSource="{x:Static local1:MainPage.Devices}"  Grid.Row="1">
                     <CollectionView.Header>
                         <Label x:Name="HeaderLabel" Text= "Режим просмотра" FontSize="18" FontAttributes="Bold" />
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="local:Device" >
                             <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="#F0F0F0" CornerRadius="10" HasShadow="True">
-                                <Grid RowSpacing="5" HeightRequest="350" WidthRequest="350">
+                                <Grid RowSpacing="5" >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
